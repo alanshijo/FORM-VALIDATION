@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- select2 css -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>NMS</title>
+</head>
+
+<body>
+    <div id="showDetails" class="modal">
+        <div class="content">
+            <div class="header">
+                <span class="close">&times;</span>
+            </div>
+            <div class="body">
+            </div>
+        </div>
+    </div>
+    </div>
+    <section class="card">
+        <ul class="tabs">
+            <li class="active">Profile</li>
+            <li>Punch Card</li>
+            <li>Quotas & Balance</li>
+            <li>Vacation Log</li>
+            <li>Pending Leaves</li>
+            <li>Projects</li>
+            <li>Documents</li>
+        </ul>
+        <div class="line"></div>
+        <div class="content active">
+            <div class="head">
+                <h1 class="tab-heading">Profile</h1>
+                <i class="fa-solid fa-bars hamburger"></i>
+            </div>
+            <form>
+                <div class="form">
+                    <div>
+                        <div class="form-control">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" class="input-form">
+                            <span id="firstName-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="input-form">
+                            <span id="lastName-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" class="input-form">
+                            <span id="dob-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="gender">Gender</label>
+                            <select id="gender" class="input-form">
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                            <span id="gender-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="input-form">
+                            <span id="email-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="mobile">Mobile</label>
+                            <input type="tel" id="mobile" class="input-form" maxlength="10">
+                            <span id="mob-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="joiningDate">Joining Date</label>
+                            <input type="date" id="joiningDate" class="input-form">
+                            <span id="joiningDate-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="employeeCode">Employee Code</label>
+                            <input type="text" id="employeeCode" class="input-form">
+                            <span id="employCode-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div class="address">
+                        <div class="form-control">
+                            <label for="employeeAddr">Employee Address</label>
+                            <textarea id="employeeAddr" class="input-form"></textarea>
+                            <span id="address-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="employType">Employment Type</label>
+                            <select id="employType" class="input-form">
+                                <option value="">Select an option</option>
+                                <option value="Full-time">Full Time</option>
+                                <option value="Part-time">Part Time</option>
+                            </select>
+                            <span id="employType-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="designation">Designation</label>
+                            <select id="designation" class="input-form">
+                                <option value="">Select an option</option>
+                                <option value="FULLSTACK DEVELOPER">FULLSTACK DEVELOPER</option>
+                                <option value="DEVOPS ENGINEER">DEVOPS ENGINEER</option>
+                            </select>
+                            <span id="designation-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="department">Department</label>
+                            <select id="department" class="input-form">
+                                <option value="">Select an option</option>
+                                <option value="Tech-team">Tech Team</option>
+                                <option value="Design-team">Design Team</option>
+                            </select>
+                            <span id="department-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="project">Project</label>
+                            <select id="project" multiple class="input-form multiple-select">
+                                <option value="KESHER">KESHER</option>
+                                <option value="NMS">NMS</option>
+                            </select>
+                            <span id="project-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="buddy">Buddy</label>
+                            <select id="buddy" class="input-form">
+                                <option value="">Select an option</option>
+                                <option value="Kishore">Kishore</option>
+                                <option value="Amal">Amal</option>
+                            </select>
+                            <span id="buddy-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="manager">Manager</label>
+                            <select id="manager" class="input-form">
+                                <option value="">Select an option</option>
+                                <option value="Wilfy Wilson">Wilfy Wilson</option>
+                                <option value="Value 2">Value 2</option>
+                                <option value="Value 3">Value 3</option>
+                            </select>
+                            <span id="manager-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="probationStatus">Probation Status</label>
+                            <select id="probationStatus" class="input-form">
+                                <option value="">Select an option</option>
+                                <option value="In Probation">In Probation</option>
+                                <option value="Value 2">Value 2</option>
+                                <option value="Value 3">Value 3</option>
+                            </select>
+                            <span id="probationStatus-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="probationPeriod">Probation Period</label>
+                            <div class="disabled-label">
+                                <select id="probationPeriod" class="input-form">
+                                    <option value="">Select</option>
+                                    <option value="3 Months">3</option>
+                                    <option value="6 Months">6</option>
+                                    <option value="9 Months">9</option>
+                                </select>
+                                <button disabled>Months</button>
+                            </div>
+                            <span id="probationPeriod-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="workStatus">Work Status</label>
+                            <select id="workStatus" class="input-form">
+                                <option value="">Select</option>
+                                <option value="Home">Home</option>
+                                <option value="Office">Office</option>
+                            </select>
+                            <span id="workStatus-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="salary">Salary</label>
+                            <input type="text" id="salary" class="input-form">
+                            <span id="salary-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="dailyWorkHours">Daily Work Hours</label>
+                            <input type="text" id="dailyWorkHours" class="input-form">
+                            <span id="dailyWorkHours-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="weeklyWorkHours">Weekly Work Hours</label>
+                            <input type="text" id="weeklyWorkHours" class="input-form">
+                            <span id="weeklyWorkHours-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="panNumber">PAN Number</label>
+                            <input type="text" id="panNumber" class="input-form">
+                            <span id="panNumber-error" class="error"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label for="aadharNumber">Aadhar Number</label>
+                            <input type="text" id="aadharNumber" class="input-form">
+                            <span id="aadharNumber-error" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="call-action-btns">
+                    <button type="submit" id="save" class="btn btn-primary">Save Changes</button>
+                    <button type="reset" id="discard" class="btn btn-outline">Discard</button>
+                    <button type="button" id="archive" class="btn btn-secondary">Archive</button>
+                </div>
+            </form>
+        </div>
+        <div class="content">
+            <div class="head">
+                <h1 class="tab-heading">Punch Card</h1>
+                <i class="fa-solid fa-bars hamburger"></i>
+            </div>
+        </div>
+        <div class="content">
+            <div class="head">
+                <h1 class="tab-heading">Quotas & Balance</h1>
+                <i class="fa-solid fa-bars hamburger"></i>
+            </div>
+        </div>
+        <div class="content">
+            <div class="head">
+                <h1 class="tab-heading">Vacation Log</h1>
+                <i class="fa-solid fa-bars hamburger"></i>
+            </div>
+        </div>
+        <div class="content">
+            <div class="head">
+                <h1 class="tab-heading">Pending Leaves</h1>
+                <i class="fa-solid fa-bars hamburger"></i>
+            </div>
+        </div>
+        <div class="content">
+            <div class="head">
+                <h1 class="tab-heading">Projects</h1>
+                <i class="fa-solid fa-bars hamburger"></i>
+            </div>
+        </div>
+        <div class="content">
+            <div class="head">
+                <h1 class="tab-heading">Documents</h1>
+                <i class="fa-solid fa-bars hamburger"></i>
+            </div>
+        </div>
+    </section>
+    <!-- Mobile screen -->
+    <div class="mobileNav">
+        <i class="fa fa-close nav-close"></i>
+        <ul class="tabs">
+            <li class="active">Profile</li>
+            <li>Punch Card</li>
+            <li>Quotas & Balance</li>
+            <li>Vacation Log</li>
+            <li>Pending Leaves</li>
+            <li>Projects</li>
+            <li>Documents</li>
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- select 2 js -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="./script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.multiple-select').select2({
+                placeholder: 'Select a project',
+            });
+        });</script>
+</body>
+
+</html>
