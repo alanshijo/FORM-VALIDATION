@@ -37,10 +37,12 @@ li.forEach((element, index) => {
 });
 
 const validation = (value, pattern, error, msg) => {
-  if (value.match(pattern)) {
+  if (pattern.test(value)) {
     error.innerText = '';
+    return true;
   } else {
     error.innerText = msg;
+    return false;
   }
   if (value === '') {
     error.innerText = '';
@@ -164,6 +166,105 @@ function requiredValid() {
       panNumber.value === '' ? msg : '';
     document.getElementById('aadharNumber-error').innerText =
       aadharNumber.value === '' ? msg : '';
+
+    firstName.addEventListener('input', () => {
+      document.getElementById('firstName-error').innerText =
+        firstName.value === '' ? msg : '';
+    });
+    lastName.addEventListener('input', () => {
+      document.getElementById('lastName-error').innerText =
+        lastName.value === '' ? msg : '';
+    });
+
+    dob.addEventListener('input', () => {
+      document.getElementById('dob-error').innerText =
+        dob.value === '' ? msg : '';
+    });
+    gender.addEventListener('input', () => {
+      document.getElementById('gender-error').innerText =
+        gender.value === '' ? msg : '';
+    });
+    email.addEventListener('input', () => {
+      document.getElementById('email-error').innerText =
+        email.value === '' ? msg : '';
+    });
+    mobile.addEventListener('input', () => {
+      document.getElementById('mob-error').innerText =
+        mobile.value === '' ? msg : '';
+    });
+    joiningDate.addEventListener('input', () => {
+      document.getElementById('joiningDate-error').innerText =
+        joiningDate.value === '' ? msg : '';
+    });
+    employeeCode.addEventListener('input', () => {
+      document.getElementById('employCode-error').innerText =
+        employeeCode.value === '' ? msg : '';
+    });
+    employeeAddr.addEventListener('input', () => {
+      document.getElementById('address-error').innerText =
+        employeeAddr.value === '' ? msg : '';
+    });
+    employType.addEventListener('input', () => {
+      document.getElementById('employType-error').innerText =
+        employType.value === '' ? msg : '';
+    });
+    designation.addEventListener('input', () => {
+      document.getElementById('designation-error').innerText =
+        designation.value === '' ? msg : '';
+    });
+    department.addEventListener('input', () => {
+      document.getElementById('department-error').innerText =
+        department.value === '' ? msg : '';
+    });
+    project.addEventListener('change', () => {
+      document.getElementById('project-error').innerText =
+        project.value === '' ? msg : '';
+    });
+    buddy.addEventListener('input', () => {
+      document.getElementById('buddy-error').innerText =
+        buddy.value === '' ? msg : '';
+    });
+    manager.addEventListener('input', () => {
+      document.getElementById('manager-error').innerText =
+        manager.value === '' ? msg : '';
+    });
+    probationStatus.addEventListener('input', () => {
+      document.getElementById('probationStatus-error').innerText =
+        probationStatus.value === '' ? msg : '';
+    });
+    probationPeriod.addEventListener('input', () => {
+      document.getElementById('probationPeriod-error').innerText =
+        probationPeriod.value === '' ? msg : '';
+    });
+    workStatus.addEventListener('input', () => {
+      document.getElementById('workStatus-error').innerText =
+        workStatus.value === '' ? msg : '';
+    });
+    salary.addEventListener('input', () => {
+      document.getElementById('salary-error').innerText =
+        salary.value === '' ? msg : '';
+    });
+    dailyWorkHours.addEventListener('input', () => {
+      document.getElementById('dailyWorkHours-error').innerText =
+        dailyWorkHours.value === '' ? msg : '';
+    });
+    weeklyWorkHours.addEventListener('input', () => {
+      document.getElementById('weeklyWorkHours-error').innerText =
+        weeklyWorkHours.value === '' ? msg : '';
+    });
+    panNumber.addEventListener('input', () => {
+      document.getElementById('panNumber-error').innerText =
+        panNumber.value === '' ? msg : '';
+    });
+    aadharNumber.addEventListener('input', () => {
+      document.getElementById('aadharNumber-error').innerText =
+        aadharNumber.value === '' ? msg : '';
+    });
+
+    form.addEventListener('input', firstNameValid);
+    form.addEventListener('input', lastNameValid);
+    form.addEventListener('input', mailValid);
+    form.addEventListener('input', mobileValid);
     return false;
   } else {
     return true;
@@ -172,7 +273,22 @@ function requiredValid() {
 
 const onSubmit = (e) => {
   e.preventDefault();
-  if (requiredValid()) {
+  function validateFields(name, pattern) {
+    return pattern.test(name.value);
+  }
+  if (
+    requiredValid() &&
+    validateFields(firstName, /^[A-Za-z]+$/) &&
+    validateFields(lastName, /^[A-Za-z]+$/) &&
+    validateFields(
+      email,
+      /^[0-9a-zA-Z-_\$#]+@[0-9a-zA-Z-_\$#]+\.[a-zA-Z]{2,5}/
+    ) &&
+    validateFields(
+      mobile,
+      /^(?!(\d)\1{9})(?!0123456789|1234567890|0987654321)\d{10}$/
+    )
+  ) {
     const options = project.selectedOptions;
     const values = Array.from(options).map(({ value }) => value);
     const employee = {
@@ -308,25 +424,6 @@ lastName.addEventListener('input', lastNameValid);
 email.addEventListener('input', mailValid);
 mobile.addEventListener('input', mobileValid);
 form.addEventListener('submit', onSubmit);
-dob.addEventListener('input', requiredValid);
-gender.addEventListener('input', requiredValid);
-joiningDate.addEventListener('input', requiredValid);
-employeeCode.addEventListener('input', requiredValid);
-employeeAddr.addEventListener('input', requiredValid);
-employType.addEventListener('input', requiredValid);
-designation.addEventListener('input', requiredValid);
-department.addEventListener('input', requiredValid);
-project.addEventListener('input', requiredValid);
-buddy.addEventListener('input', requiredValid);
-manager.addEventListener('input', requiredValid);
-probationStatus.addEventListener('input', requiredValid);
-probationPeriod.addEventListener('input', requiredValid);
-workStatus.addEventListener('input', requiredValid);
-salary.addEventListener('input', requiredValid);
-dailyWorkHours.addEventListener('input', requiredValid);
-weeklyWorkHours.addEventListener('input', requiredValid);
-panNumber.addEventListener('input', requiredValid);
-aadharNumber.addEventListener('input', requiredValid);
 btnDiscard.addEventListener('click', () => {
   $('.multiple-select').val('').trigger('change');
 });
