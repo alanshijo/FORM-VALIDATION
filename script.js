@@ -37,24 +37,26 @@ li.forEach((element, index) => {
 });
 
 const validation = (value, pattern, error, msg) => {
-  if (pattern.test(value)) {
+  if (value === '') {
+    error.innerText = '';
+  } else if (pattern.test(value)) {
     error.innerText = '';
     return true;
   } else {
     error.innerText = msg;
     return false;
   }
-  if (value === '') {
-    error.innerText = '';
-  }
 };
-const pattern = /^[A-Za-z]+$/;
+
 const firstNameValid = (e) => {
-  const nameValue = e.target.value;
+  const pattern = /^[A-Za-z]+$/;
+  const nameValue = firstName.value;
   const firstNameError = document.getElementById('firstName-error');
+
   validation(nameValue, pattern, firstNameError, 'Alphabets only');
 };
 const lastNameValid = (e) => {
+  const pattern = /^[A-Za-z]+$/;
   const nameValue = e.target.value;
   const lastNameError = document.getElementById('lastName-error');
   validation(nameValue, pattern, lastNameError, 'Alphabets only');
@@ -72,7 +74,21 @@ const mobileValid = (e) => {
   const mobError = document.getElementById('mob-error');
   validation(mobValue, pattern, mobError, 'Invalid mobile number');
 };
+
 function requiredValid() {
+  function validateFields(name, pattern) {
+    return pattern.test(name.value);
+  }
+  const isFirstNameValid = validateFields(firstName, /^[A-Za-z]+$/);
+  const isLastNameValid = validateFields(lastName, /^[A-Za-z]+$/);
+  const isMailValid = validateFields(
+    email,
+    /^[0-9a-zA-Z-_\$#]+@[0-9a-zA-Z-_\$#]+\.[a-zA-Z]{2,5}/
+  );
+  const isMobileValid = validateFields(
+    mobile,
+    /^(?!(\d)\1{9})(?!0123456789|1234567890|0987654321)\d{10}$/
+  );
   if (
     firstName.value === '' ||
     lastName.value === '' ||
@@ -100,10 +116,10 @@ function requiredValid() {
   ) {
     const msg = 'This field is required';
     document.getElementById('firstName-error').innerText =
-      firstName.value === '' ? msg : '';
+      firstName.value === '' ? msg : isFirstNameValid ? '' : 'Alphabets only';
 
     document.getElementById('lastName-error').innerText =
-      lastName.value === '' ? msg : '';
+      lastName.value === '' ? msg : isLastNameValid ? '' : 'Alphabets only';
 
     document.getElementById('dob-error').innerText =
       dob.value === '' ? msg : '';
@@ -112,10 +128,10 @@ function requiredValid() {
       gender.value === '' ? msg : '';
 
     document.getElementById('email-error').innerText =
-      email.value === '' ? msg : '';
+      email.value === '' ? msg : isMailValid ? '' : `Email isn't valid`;
 
     document.getElementById('mob-error').innerText =
-      mobile.value === '' ? msg : '';
+      mobile.value === '' ? msg : isMobileValid ? '' : 'Invalid mobile number';
 
     document.getElementById('joiningDate-error').innerText =
       joiningDate.value === '' ? msg : '';
@@ -261,34 +277,25 @@ function requiredValid() {
         aadharNumber.value === '' ? msg : '';
     });
 
-    form.addEventListener('input', firstNameValid);
-    form.addEventListener('input', lastNameValid);
-    form.addEventListener('input', mailValid);
-    form.addEventListener('input', mobileValid);
     return false;
   } else {
-    return true;
+    if (
+      !isFirstNameValid ||
+      !isLastNameValid ||
+      !isMailValid ||
+      !isMobileValid
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 
 const onSubmit = (e) => {
   e.preventDefault();
-  function validateFields(name, pattern) {
-    return pattern.test(name.value);
-  }
-  if (
-    requiredValid() &&
-    validateFields(firstName, /^[A-Za-z]+$/) &&
-    validateFields(lastName, /^[A-Za-z]+$/) &&
-    validateFields(
-      email,
-      /^[0-9a-zA-Z-_\$#]+@[0-9a-zA-Z-_\$#]+\.[a-zA-Z]{2,5}/
-    ) &&
-    validateFields(
-      mobile,
-      /^(?!(\d)\1{9})(?!0123456789|1234567890|0987654321)\d{10}$/
-    )
-  ) {
+
+  if (requiredValid()) {
     const options = project.selectedOptions;
     const values = Array.from(options).map(({ value }) => value);
     const employee = {
@@ -419,15 +426,17 @@ const showData = (employee) => {
   modalBody.appendChild(editButton);
   modal.style.display = 'block';
 };
-firstName.addEventListener('input', firstNameValid);
-lastName.addEventListener('input', lastNameValid);
-email.addEventListener('input', mailValid);
-mobile.addEventListener('input', mobileValid);
+firstName.addEventListener('keyup', firstNameValid);
+lastName.addEventListener('keyup', lastNameValid);
+email.addEventListener('keyup', mailValid);
+mobile.addEventListener('keyup', mobileValid);
 form.addEventListener('submit', onSubmit);
 btnDiscard.addEventListener('click', () => {
   $('.multiple-select').val('').trigger('change');
 });
-
+$('.multiple-select').on('change', function () {
+  document.getElementById('project-error').innerText = '';
+});
 // ---Modal---
 const modal = document.getElementById('showDetails');
 const closeBtn = document.querySelector('.close');
