@@ -11,6 +11,8 @@ body {
 
 .card {
   width: 1200px;
+  min-height: 740px;
+  max-height: fit-content;
   margin: 50px auto;
   padding: 36px 42px;
   border-radius: 12px;
@@ -212,8 +214,8 @@ body {
 .card .content .head .hamburger {
   display: none;
 }
-.mobileNav,
-.mobileNav .tabs {
+.mobileNav .tabs,
+.mobileNav .nav-close {
   display: none;
 }
 @media screen and (max-width: 400px) {
@@ -239,41 +241,53 @@ body {
   .card .line {
     display: none;
   }
-  .mobileNav {
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    padding: 48px;
+  .card {
     overflow: hidden;
   }
-  .mobileNav .nav-close {
-    cursor: pointer;
-    font-size: 36px;
+  .card,
+  .mobileNav{
+    min-height: 1200px;
+    max-height: fit-content;
+  }
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(58, 58, 58, 0.152);
+  }
+  .mobileNav {
     position: absolute;
     top: 0;
-    right: 0;
-    margin-top: 100px;
-    margin-right: 80px;
+    right: -400px;
+    padding: 48px;
+    height: 100%;
+    width: 380px;
+    background-color: #fff;
+    transition: transform 0.5s ease-out;
+    z-index: 2;
+  }
+  .mobileNav .nav-close {
+    display: block;
+    margin-top: 40px;
+    cursor: pointer;
   }
   .mobileNav .tabs {
-    color: #adb5bd;
-    font-weight: 600;
+    margin-top: 48px;
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 24px;
+    color: #adb5bd;
+    font-weight: bold;
+  }
+  .mobileNav .tabs li {
+    cursor: pointer;
   }
   .mobileNav .tabs .active {
-    color: #20c997;
     border: none;
-  }
-  .mobileNav .tabs li:hover {
-    cursor: pointer;
   }
   .card {
     width: 600px;

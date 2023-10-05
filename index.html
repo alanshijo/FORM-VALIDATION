@@ -15,12 +15,10 @@
 
 <body>
     <div id="showDetails" class="modal">
-        <div class="content">
-            <div class="header">
-                <span class="close">&times;</span>
-            </div>
-            <div class="body">
-            </div>
+        <div class="header">
+            <span class="close">&times;</span>
+        </div>
+        <div class="body">
         </div>
     </div>
     </div>
@@ -245,7 +243,7 @@
                     <div>
                         <div class="form-control">
                             <label for="aadharNumber">Aadhar Number</label>
-                            <input type="text" id="aadharNumber" class="input-form">
+                            <input type="text" id="aadharNumber" maxlength="12" class="input-form">
                             <span id="aadharNumber-error" class="error"></span>
                         </div>
                     </div>
@@ -293,20 +291,21 @@
                 <i class="fa-solid fa-bars hamburger"></i>
             </div>
         </div>
+        <!-- Mobile screen -->
+        <div class="overlay"></div>
+        <div id="mobileNav" class="mobileNav">
+            <i class="fa fa-close nav-close"></i>
+            <ul class="tabs">
+                <li class="active">Profile</li>
+                <li>Punch Card</li>
+                <li>Quotas & Balance</li>
+                <li>Vacation Log</li>
+                <li>Pending Leaves</li>
+                <li>Projects</li>
+                <li>Documents</li>
+            </ul>
+        </div>
     </section>
-    <!-- Mobile screen -->
-    <div class="mobileNav">
-        <i class="fa fa-close nav-close"></i>
-        <ul class="tabs">
-            <li class="active">Profile</li>
-            <li>Punch Card</li>
-            <li>Quotas & Balance</li>
-            <li>Vacation Log</li>
-            <li>Pending Leaves</li>
-            <li>Projects</li>
-            <li>Documents</li>
-        </ul>
-    </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 

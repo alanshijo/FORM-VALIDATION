@@ -24,7 +24,8 @@ const aadharNumber = document.getElementById('aadharNumber');
 const btnSave = document.getElementById('save');
 const btnDiscard = document.getElementById('discard');
 const form = document.querySelector('form');
-const li = document.querySelectorAll('.card .tabs li');
+const li = document.querySelectorAll('.card .tabs li:not(.mobileNav .tabs li)');
+const mobLi = document.querySelectorAll('.card .mobileNav .tabs li');
 const content = document.querySelectorAll('.content');
 const modalBody = document.querySelector('.modal .content .body');
 li.forEach((element, index) => {
@@ -32,7 +33,7 @@ li.forEach((element, index) => {
     li.forEach((element) => element.classList.remove('active'));
     element.classList.add('active');
     content.forEach((content) => content.classList.remove('active'));
-    content[index + 1].classList.add('active');
+    content[index].classList.add('active');
   });
 });
 
@@ -74,6 +75,12 @@ const mobileValid = (e) => {
   const mobError = document.getElementById('mob-error');
   validation(mobValue, pattern, mobError, 'Invalid mobile number');
 };
+const aadharValid = (e) => {
+  const pattern = /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/;
+  const aadharValue = e.target.value;
+  const aadharError = document.getElementById('aadharNumber-error');
+  validation(aadharValue, pattern, aadharError, 'Invalid aadhar number');
+};
 
 function requiredValid() {
   function validateFields(name, pattern) {
@@ -88,6 +95,10 @@ function requiredValid() {
   const isMobileValid = validateFields(
     mobile,
     /^(?!(\d)\1{9})(?!0123456789|1234567890|0987654321)\d{10}$/
+  );
+  const isAadharValid = validateFields(
+    aadharNumber,
+    /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/
   );
   if (
     firstName.value === '' ||
@@ -181,7 +192,11 @@ function requiredValid() {
     document.getElementById('panNumber-error').innerText =
       panNumber.value === '' ? msg : '';
     document.getElementById('aadharNumber-error').innerText =
-      aadharNumber.value === '' ? msg : '';
+      aadharNumber.value === ''
+        ? msg
+        : isAadharValid
+        ? ''
+        : 'Invalid aadhar number';
 
     firstName.addEventListener('input', () => {
       document.getElementById('firstName-error').innerText =
@@ -283,7 +298,8 @@ function requiredValid() {
       !isFirstNameValid ||
       !isLastNameValid ||
       !isMailValid ||
-      !isMobileValid
+      !isMobileValid ||
+      !isAadharValid
     ) {
       return false;
     } else {
@@ -426,17 +442,22 @@ const showData = (employee) => {
   modalBody.appendChild(editButton);
   modal.style.display = 'block';
 };
+
+// Input validation
 firstName.addEventListener('keyup', firstNameValid);
 lastName.addEventListener('keyup', lastNameValid);
 email.addEventListener('keyup', mailValid);
 mobile.addEventListener('keyup', mobileValid);
+aadharNumber.addEventListener('keyup', aadharValid);
 form.addEventListener('submit', onSubmit);
 btnDiscard.addEventListener('click', () => {
   $('.multiple-select').val('').trigger('change');
 });
+
 $('.multiple-select').on('change', function () {
   document.getElementById('project-error').innerText = '';
 });
+
 // ---Modal---
 const modal = document.getElementById('showDetails');
 const closeBtn = document.querySelector('.close');
@@ -447,26 +468,35 @@ closeBtn.addEventListener('click', () => {
 
 // Mobile
 const hamburger = document.querySelectorAll('.hamburger');
-const navClose = document.querySelector('.nav-close');
 const mobileNav = document.querySelector('.mobileNav');
+const overlay = document.querySelector('.overlay');
+
 hamburger.forEach((element) => {
   element.addEventListener('click', () => {
-    mobileNav.style.display = 'flex';
+    mobileNav.style.transform = 'translate(-400px)';
+    overlay.style.display = 'block';
   });
 });
 
+const navClose = document.querySelector('.nav-close');
 navClose.addEventListener('click', () => {
-  mobileNav.style.display = 'none';
+  mobileNav.style.transform = 'translate(400px)';
+  // mobileNav.style.transition = 'transform .5s linear';
+  overlay.style.display = 'none';
 });
 
-const mobLi = document.querySelectorAll('.mobileNav .tabs li');
+overlay.addEventListener('click', () => {
+  mobileNav.style.transform = 'translate(400px)';
+  overlay.style.display = 'none';
+});
 
 mobLi.forEach((element, index) => {
   element.addEventListener('click', () => {
     mobLi.forEach((element) => element.classList.remove('active'));
     element.classList.add('active');
     content.forEach((content) => content.classList.remove('active'));
-    content[index + 1].classList.add('active');
-    mobileNav.style.display = 'none';
+    content[index].classList.add('active');
+    mobileNav.style.transform = 'translate(400px)';
+    overlay.style.display = 'none';
   });
 });
